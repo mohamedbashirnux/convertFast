@@ -18,7 +18,7 @@ export const CONVERSIONS: ConversionConfig[] = [
     label: "WebM to MP4",
     title: "Convert WebM to MP4 Online — Free & Fast",
     description:
-      "Convert WebM videos to MP4 instantly in your browser. No upload needed, 100% private, supports files up to 500 MB. Free forever.",
+      "Convert WebM videos to MP4 instantly in your browser. No upload needed, 100% private, supports files up to 200 MB. Free forever.",
     h1: "Free WebM to MP4 Converter",
     howTo: [
       "Click 'Choose File' or drag your WebM video into the drop zone.",
@@ -41,7 +41,7 @@ export const CONVERSIONS: ConversionConfig[] = [
       },
       {
         q: "What is the maximum file size?",
-        a: "Up to 500 MB. For larger files, consider splitting the video first.",
+        a: "Up to 200 MB. For larger files, consider splitting the video first.",
       },
       {
         q: "Will the quality be affected?",
@@ -109,7 +109,7 @@ export const CONVERSIONS: ConversionConfig[] = [
       },
       {
         q: "Can I convert 4K MOV files?",
-        a: "Yes, but 4K files are large and may take a few minutes. Make sure the file is under 500 MB.",
+        a: "Yes, but 4K files are large and may take a few minutes. Make sure the file is under 200 MB.",
       },
       {
         q: "Does this work on iPhone?",
@@ -124,7 +124,7 @@ export const CONVERSIONS: ConversionConfig[] = [
     label: "MKV to MP4",
     title: "Convert MKV to MP4 Online — Free & No Software Needed",
     description:
-      "Convert MKV videos to MP4 directly in your browser. No installation, no upload, completely private. Supports files up to 500 MB.",
+      "Convert MKV videos to MP4 directly in your browser. No installation, no upload, completely private. Supports files up to 200 MB.",
     h1: "Free MKV to MP4 Converter",
     howTo: [
       "Drag your MKV file into the drop zone or click to browse.",

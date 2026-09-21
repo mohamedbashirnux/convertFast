@@ -23,17 +23,23 @@ export async function loadFFmpeg(): Promise<FFmpeg> {
   loadingPromise = (async () => {
     const ffmpeg = new FFmpeg();
 
-    // Load the WASM core from CDN using blob URLs (required by ffmpeg.wasm)
-    await ffmpeg.load({
-      coreURL: await toBlobURL(
-        `${CDN_BASE}/ffmpeg-core.js`,
-        "text/javascript"
-      ),
-      wasmURL: await toBlobURL(
-        `${CDN_BASE}/ffmpeg-core.wasm`,
-        "application/wasm"
-      ),
-    });
+    try {
+      // Load the WASM core from CDN using blob URLs (required by ffmpeg.wasm)
+      await ffmpeg.load({
+        coreURL: await toBlobURL(
+          `${CDN_BASE}/ffmpeg-core.js`,
+          "text/javascript"
+        ),
+        wasmURL: await toBlobURL(
+          `${CDN_BASE}/ffmpeg-core.wasm`,
+          "application/wasm"
+        ),
+      });
+    } catch (err) {
+      // Clear the cached promise so the user can retry without reloading the page
+      loadingPromise = null;
+      throw err;
+    }
 
     ffmpegInstance = ffmpeg;
     return ffmpeg;
@@ -60,7 +66,8 @@ function getFFmpegArgs(
         "-c:v", "libx264",
         "-c:a", "aac",
         "-movflags", "+faststart",
-        "-preset", "fast",
+        "-preset", "ultrafast",
+        "-pix_fmt", "yuv420p",
         outputFilename,
       ];
     case "mp3":
@@ -78,6 +85,8 @@ function getFFmpegArgs(
         "-c:a", "libopus",
         "-b:v", "0",
         "-crf", "30",
+        "-deadline", "realtime",
+        "-cpu-used", "8",
         outputFilename,
       ];
     case "mov":
@@ -86,6 +95,8 @@ function getFFmpegArgs(
         "-c:v", "libx264",
         "-c:a", "aac",
         "-movflags", "+faststart",
+        "-preset", "ultrafast",
+        "-pix_fmt", "yuv420p",
         outputFilename,
       ];
     case "wav":

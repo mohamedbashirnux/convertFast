@@ -2,9 +2,9 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { loadFFmpeg, convertFile } from "@/lib/ffmpeg";
+import { MAX_FILE_SIZE_BYTES, MAX_FILE_SIZE_MB } from "@/lib/config";
 import type { FFmpeg } from "@ffmpeg/ffmpeg";
 
-const MAX_SIZE = 500 * 1024 * 1024; // 500 MB
 const OUTPUT_FORMATS = ["mp4", "mp3", "webm", "mov", "wav"] as const;
 type OutputFormat = (typeof OUTPUT_FORMATS)[number];
 
@@ -71,7 +71,6 @@ export default function Converter({ defaultOutputFormat }: ConverterProps) {
     if (!incoming) return;
     resetState();
     setFile(incoming);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // --- Drag and drop handlers ---
@@ -144,7 +143,7 @@ export default function Converter({ defaultOutputFormat }: ConverterProps) {
     }
   };
 
-  const isTooLarge = file !== null && file.size > MAX_SIZE;
+  const isTooLarge = file !== null && file.size > MAX_FILE_SIZE_BYTES;
   const isConverting = status === "loading" || status === "converting";
   const canConvert = file !== null && !isTooLarge && !isConverting && status !== "done";
 
@@ -201,7 +200,7 @@ export default function Converter({ defaultOutputFormat }: ConverterProps) {
               Drop your video or audio file here
             </p>
             <p className="text-sm text-gray-500">
-              or click to browse — up to 500 MB
+              or click to browse — up to {MAX_FILE_SIZE_MB} MB
             </p>
           </div>
         )}
@@ -217,7 +216,7 @@ export default function Converter({ defaultOutputFormat }: ConverterProps) {
         />
       </div>
 
-      {/* 500 MB warning */}
+      {/* File size warning */}
       {isTooLarge && (
         <div
           role="alert"
@@ -237,7 +236,7 @@ export default function Converter({ defaultOutputFormat }: ConverterProps) {
             />
           </svg>
           <span>
-            <strong>File is too large.</strong> Maximum size is 500 MB. Your
+            <strong>File is too large.</strong> Maximum size is {MAX_FILE_SIZE_MB} MB. Your
             file is {formatBytes(file.size)}.
           </span>
         </div>
