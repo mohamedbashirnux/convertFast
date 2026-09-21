@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { CONVERSIONS, getConversion } from "@/lib/conversions";
 import Converter from "@/components/Converter";
-import AdSlot from "@/components/AdSlot";
 
 const BASE_URL = "https://convertfast.app";
 
@@ -52,9 +51,6 @@ export default async function ConversionPage({
 
   return (
     <main className="max-w-3xl mx-auto px-4 py-8 space-y-10">
-      {/* Top ad slot */}
-      <AdSlot size="top" />
-
       {/* Page header */}
       <div className="space-y-2">
         <h1 className="text-3xl font-bold tracking-tight text-gray-900">
@@ -67,9 +63,6 @@ export default async function ConversionPage({
       <section aria-label="Converter tool">
         <Converter defaultOutputFormat={config.to} />
       </section>
-
-      {/* Bottom ad slot */}
-      <AdSlot size="bottom" />
 
       {/* How-to section */}
       <section aria-labelledby="howto-heading" className="space-y-4">
