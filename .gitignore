@@ -43,3 +43,6 @@ next-env.d.ts
 # local notes and planning files
 notes.txt
 PLAN.md
+
+# Kiro/Claude IDE settings (may contain API keys)
+.claude/

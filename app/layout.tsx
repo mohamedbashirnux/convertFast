@@ -66,6 +66,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <p>No uploads. No accounts. Free forever.</p>
           </div>
         </footer>
+
+        {/* Cloudflare Web Analytics */}
+        <script
+          type="module"
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "2ea2ea7647b44b70965f27adaef91a63"}'
+        />
       </body>
     </html>
   );
