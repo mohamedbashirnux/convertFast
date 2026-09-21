@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
+import Script from "next/script";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -68,10 +69,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </footer>
 
         {/* Cloudflare Web Analytics */}
-        <script
-          type="module"
+        <Script
           src="https://static.cloudflareinsights.com/beacon.min.js"
           data-cf-beacon='{"token": "2ea2ea7647b44b70965f27adaef91a63"}'
+          strategy="afterInteractive"
         />
       </body>
     </html>
