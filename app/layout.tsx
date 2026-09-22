@@ -70,8 +70,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 
         {/* Cloudflare Web Analytics */}
         <Script
+          type="module"
           src="https://static.cloudflareinsights.com/beacon.min.js"
-          data-cf-beacon='{"token": "2ea2ea7647b44b70965f27adaef91a63"}'
+          data-cf-beacon='{"token": "7e59c890615642f9b381bf22065175d3"}'
           strategy="afterInteractive"
         />
       </body>
