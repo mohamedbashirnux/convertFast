@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
   description:
     "Free online video and audio converter. Convert MP4, MP3, WebM, MOV, WAV and more. Works in your browser — no upload needed, 100% private.",
-  metadataBase: new URL("https://convertfast.app"),
+  metadataBase: new URL("https://convertfast.convertapp.workers.dev"),
   openGraph: {
     siteName: "ConvertFast",
     type: "website",

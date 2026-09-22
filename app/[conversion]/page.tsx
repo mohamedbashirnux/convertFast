@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { CONVERSIONS, getConversion } from "@/lib/conversions";
 import Converter from "@/components/Converter";
 
-const BASE_URL = "https://convertfast.app";
+const BASE_URL = "https://convertfast.convertapp.workers.dev";
 
 // Pre-generate all 10 conversion pages at build time
 export function generateStaticParams() {

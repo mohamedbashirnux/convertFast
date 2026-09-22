@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://convertfast.app/sitemap.xml",
+    sitemap: "https://convertfast.convertapp.workers.dev/sitemap.xml",
   };
 }

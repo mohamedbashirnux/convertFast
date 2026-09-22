@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { CONVERSIONS } from "@/lib/conversions";
 
-const BASE_URL = "https://convertfast.app";
+const BASE_URL = "https://convertfast.convertapp.workers.dev";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
