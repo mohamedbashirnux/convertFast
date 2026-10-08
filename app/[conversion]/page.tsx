@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { CONVERSIONS, getConversion } from "@/lib/conversions";
 import Converter from "@/components/Converter";
 
@@ -31,11 +32,20 @@ export async function generateMetadata({
       url: `${BASE_URL}/${config.slug}`,
       type: "website",
       siteName: "ConvertFast",
+      images: [
+        {
+          url: `${BASE_URL}/og-image.svg`,
+          width: 1200,
+          height: 630,
+          alt: "ConvertFast — Free Online Video & Audio Converter",
+        },
+      ],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title: config.title,
       description: config.description,
+      images: [`${BASE_URL}/og-image.svg`],
     },
   };
 }
@@ -49,8 +59,36 @@ export default async function ConversionPage({
 
   if (!config) notFound();
 
+  // FAQ JSON-LD structured data for Google rich results
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: config.faq.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.a,
+      },
+    })),
+  };
+
+  // Related converters — same input OR same output, excluding current page, max 4
+  const related = CONVERSIONS.filter(
+    (c) =>
+      c.slug !== config.slug &&
+      (c.from === config.from || c.to === config.to || c.from === config.to)
+  ).slice(0, 4);
+
   return (
-    <main className="max-w-3xl mx-auto px-4 py-8 space-y-10">
+    <>
+      {/* FAQ structured data — injected into <head> by Next.js */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+
+      <main className="max-w-3xl mx-auto px-4 py-8 space-y-10">
       {/* Page header */}
       <div className="space-y-2">
         <h1 className="text-3xl font-bold tracking-tight text-gray-900">
@@ -123,6 +161,41 @@ export default async function ConversionPage({
           ))}
         </div>
       </section>
+
+      {/* Related converters — internal links */}
+      {related.length > 0 && (
+        <section aria-labelledby="related-heading" className="space-y-4">
+          <h2
+            id="related-heading"
+            className="text-xl font-semibold text-gray-900"
+          >
+            You might also need
+          </h2>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {related.map((c) => (
+              <Link
+                key={c.slug}
+                href={`/${c.slug}`}
+                className="flex flex-col items-center gap-1.5 rounded-lg border border-gray-200 bg-white p-3 text-center text-sm transition-all hover:border-blue-300 hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+              >
+                <div className="flex items-center gap-1 text-xs font-bold">
+                  <span className="rounded bg-gray-100 px-1.5 py-0.5 uppercase text-gray-600">
+                    {c.from}
+                  </span>
+                  <span className="text-gray-400">→</span>
+                  <span className="rounded bg-blue-50 px-1.5 py-0.5 uppercase text-blue-600">
+                    {c.to}
+                  </span>
+                </div>
+                <span className="text-gray-700 font-medium leading-tight">
+                  {c.label}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
     </main>
+    </>
   );
 }
